@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClimaCast - Your Weather Advisor</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☁️</text></svg>">
+</head>
+<body>
+
+    <div id="weather-app" class="weather-app">
+        <div id="loader" class="loader-overlay hidden">
+            <div class="loader"></div>
+        </div>
+
+        <div id="content">
+            <header class="app-header">
+                <h1>ClimaCast</h1>
+                <div class="header-controls">
+                    <div class="search-container">
+                        <input type="text" id="city-search" placeholder="Search for a city...">
+                        <div class="search-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <button id="location-btn" class="icon-btn" aria-label="Use my location" title="Use my location">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z" />
+                            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v.563l-3.473 3.474a.75.75 0 101.06 1.06L12 8.31l2.687 2.688a.75.75 0 101.06-1.06L12.75 6.563V6zM12 12.75a.75.75 0 00-1.06 0L8.252 15.44a.75.75 0 001.06 1.06L12 13.81l2.688 2.688a.75.75 0 101.06-1.06L13.06 12.75a.75.75 0 00-1.06 0z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <button id="unit-toggle" class="unit-toggle-btn" title="Switch units">&deg;C</button>
+                    <button id="theme-toggle" class="icon-btn" title="Toggle theme"></button>
+                </div>
+            </header>
+
+            <div id="initial-view" class="initial-view">
+                <h2>Welcome to ClimaCast</h2>
+                <p>Search for a city or use your current location to get the weather forecast.</p>
+            </div>
+
+            <main id="main-content" class="hidden">
+                <div class="details-grid">
+                    <div class="weather-panel current-weather-panel">
+                        <div>
+                            <h2 id="city-name">--</h2>
+                            <div class="date-time-container">
+                                <p id="current-date">--</p>
+                                <p id="current-time">--:--</p>
+                            </div>
+                        </div>
+                        <div class="temp-display">
+                            <div id="weather-icon"></div>
+                            <div>
+                                <p id="temperature">--&deg;</p>
+                                <p id="weather-description">--</p>
+                            </div>
+                        </div>
+                        <div class="extra-details">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm0 16.5a.75.75 0 01-.75-.75v-3.364a3.75 3.75 0 01-3.364-3.364H4.5a.75.75 0 010-1.5h3.386A3.75 3.75 0 0111.25 8.25v-3a.75.75 0 011.5 0v3A3.75 3.75 0 019.386 12H12a2.25 2.25 0 012.25 2.25v3.364a.75.75 0 01-.75.75z"/></svg>
+                                Humidity: <span id="humidity">--%</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.75 12a.75.75 0 01.75-.75h14.25a.75.75 0 010 1.5H4.5a.75.75 0 01-.75-.75zM3 8.25a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zM6 15.75a.75.75 0 01.75-.75H18a.75.75 0 010 1.5H6.75a.75.75 0 01-.75-.75z"/></svg>
+                                Wind: <span id="wind-speed">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weather-panel suggestions-panel">
+                        <h3>Weather Suggestions</h3>
+                        <div id="suggestions-container"></div>
+                    </div>
+                </div>
+
+                <section class="forecast-section">
+                     <h3>5-Day Forecast</h3>
+                     <div id="forecast-container"></div>
+                </section>
+            </main>
+            
+            <footer id="error-message" class="hidden"></footer>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
