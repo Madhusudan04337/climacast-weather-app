@@ -50,7 +50,7 @@ Follow these steps to set up the project locally:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/madhusudan043337/climacast-weather-app.git
+   git clone https://github.com/Madhusudan043337/climacast-weather-app.git
    ```
 
 2. **Navigate to the project folder**
